@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!-- DOCTYPE memberi tahu browser bahwa ini dokumen HTML5 -->
+<html lang="id">
+<head>
+  <!-- HEAD: informasi tentang halaman (tidak tampil di layar) -->
+  <meta charset="UTF-8">
+  <!-- viewport: supaya tampilan pas di layar HP -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Husni Ramadhan</title>
+
+  <style>
+    /* ===== CSS: mengatur tampilan. Ditulis di dalam tag <style> ===== */
+
+    /* 1. Reset: hilangkan jarak bawaan browser */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* padding & border dihitung ke dalam lebar elemen */
+    }
+
+    /* 2. CSS Variables: simpan warna di satu tempat, mudah diganti */
+    :root {
+      --biru-tua: #1e2a3a;
+      --oranye: #e8873a;     /* warna diambil dari lensa kacamata di fotomu */
+      --pasir: #d9b88f;      /* warna diambil dari seragam */
+      --latar: #eaeff3;
+      --putih: #ffffff;
+    }
+
+    /* 3. Gaya untuk seluruh halaman */
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: var(--latar);
+      color: var(--biru-tua);
+      line-height: 1.6;
+    }
+
+    /* 4. Navigasi atas */
+    header {
+      background-color: var(--biru-tua);
+      padding: 16px 24px;
+    }
+
+    nav {
+      max-width: 960px;
+      margin: 0 auto;            /* auto kiri-kanan = rata tengah */
+      display: flex;             /* Flexbox: susun anak elemen sejajar */
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: var(--putih);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    nav ul {
+      list-style: none;          /* hilangkan titik daftar */
+      display: flex;
+      gap: 20px;                 /* jarak antar menu */
+    }
+
+    nav a {
+      color: var(--pasir);
+      text-decoration: none;     /* hilangkan garis bawah link */
+      transition: color 0.3s;    /* perubahan warna jadi halus */
+    }
+
+    nav a:hover {                /* :hover = saat kursor di atas elemen */
+      color: var(--oranye);
+    }
+
+    /* 5. Bagian hero (foto + perkenalan) */
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .hero-teks {
+      flex: 1;                   /* ambil sisa ruang yang ada */
+    }
+
+    .hero-teks h1 {
+      font-family: Georgia, serif;
+      font-size: 2.8rem;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero-teks p {
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      max-width: 46ch;           /* batasi lebar teks agar nyaman dibaca */
+    }
+
+    /* 6. Tombol */
+    .tombol {
+      display: inline-block;
+      background-color: var(--oranye);
+      color: var(--putih);
+      padding: 12px 28px;
+      border-radius: 8px;        /* sudut membulat */
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .tombol:hover {
+      background-color: #cf7128;
+      transform: translateY(-3px); /* tombol naik sedikit */
+    }
+
+    /* 7. Foto */
+    .foto-bingkai {
+      position: relative;        /* patokan untuk elemen ::before */
+      width: 300px;
+      flex-shrink: 0;            /* jangan mengecil saat layar sempit */
+    }
+
+    /* ::before membuat elemen dekorasi tanpa menambah HTML */
+    .foto-bingkai::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 100%;
+      height: 100%;
+      background-color: var(--oranye);
+      border-radius: 20px;
+      z-index: 0;                /* di belakang foto */
+    }
+
+    .foto-bingkai img {
+      position: relative;
+      z-index: 1;                /* di depan bingkai oranye */
+      width: 100%;
+      aspect-ratio: 3 / 4;       /* perbandingan lebar : tinggi */
+      object-fit: cover;         /* foto dipotong rapi, tidak gepeng */
+      border-radius: 20px;
+      display: block;
+    }
+
+    /* 8. Bagian "Tentang Saya" */
+    .tentang {
+      background-color: var(--putih);
+      padding: 56px 24px;
+    }
+
+    .tentang-isi {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .tentang h2 {
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+    }
+
+    /* Grid: susun kotak dalam kolom otomatis */
+    .info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .kotak {
+      background-color: var(--latar);
+      border-left: 6px solid var(--oranye);
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .kotak h3 {
+      margin-bottom: 8px;
+    }
+
+    /* 9. Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      background-color: var(--biru-tua);
+      color: var(--pasir);
+    }
+
+    /* 10. Responsive: aturan khusus untuk layar kecil (HP) */
+    @media (max-width: 700px) {
+      .hero {
+        flex-direction: column-reverse; /* foto pindah ke atas */
+        text-align: center;
+        padding-top: 36px;
+      }
+
+      .hero-teks h1 {
+        font-size: 2.1rem;
+      }
+
+      .hero-teks p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .foto-bingkai {
+        width: 240px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BODY: semua yang tampil di layar -->
+
+  <!-- Header & navigasi -->
+  <header>
+    <nav>
+      <span class="logo">Husni Ramadhan</span>
+      <ul>
+        <!-- href="#id" = lompat ke bagian dengan id tersebut -->
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero: perkenalan + foto -->
+  <main>
+    <section class="hero" id="beranda">
+      <div class="hero-teks">
+        <h1>Halo, saya Husni Ramadhan</h1>
+        <p>
+          Saya seorang pelajar yang sedang belajar membuat website
+          dengan HTML dan CSS. Ini adalah halaman pertama saya.
+        </p>
+        <a href="#tentang" class="tombol">Kenalan lebih jauh</a>
+      </div>
+
+      <div class="foto-bingkai">
+        <!-- src = lokasi gambar, alt = teks pengganti jika gambar gagal dimuat -->
+        <img src="foto.jpeg" alt="Foto saya memakai seragam sekolah dan kacamata">
+      </div>
+    </section>
+
+    <!-- Tentang saya -->
+    <section class="tentang" id="tentang">
+      <div class="tentang-isi">
+        <h2>Tentang Saya</h2>
+
+        <div class="info">
+          <div class="kotak">
+            <h3>Sekolah</h3>
+            <p>SMK 3 Perguruan Cikini</p>
+          </div>
+          <div class="kotak">
+            <h3>Hobi</h3>
+            <p>Badminton</p>
+          </div>
+          <div class="kotak">
+            <h3>Cita-cita</h3>
+            <p>Menjadi Network Engineer di PT KAI</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Husni Ramadhan. Dibuat dengan HTML dan CSS.</p>
+  </footer>
+</body>
+</html>
